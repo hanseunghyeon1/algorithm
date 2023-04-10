@@ -3,7 +3,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.HashMap;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -21,9 +20,8 @@ public class Main {
 			int first = Integer.parseInt(st.nextToken());
 			int last = Integer.parseInt(st.nextToken());
 			String ans = S.substring(first, last+1);
-			char[] arr = ans.toCharArray();
-			for(int j=0; j<arr.length; j++) {
-				if(arr[j]==alpha.charAt(0)) count++;
+			for(int j=0; j<ans.length(); j++) {
+				if(ans.charAt(j)==alpha.charAt(0)) count++;
 			}
 			bw.write(count+"\n");
 			count = 0;
