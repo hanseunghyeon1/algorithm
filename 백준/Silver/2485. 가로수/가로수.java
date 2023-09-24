@@ -4,39 +4,28 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
+import java.util.List;
 
 public class Main {
-
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-		int N = Integer.parseInt(br.readLine());
-		for(int i =0; i<N; i++) {
-			map.put(i, Integer.parseInt(br.readLine()));
-		}
-		HashMap<Integer,Integer> list = new HashMap<>();
-		for(int i=1; i<N; i++) {
-			list.put(i,map.get(i)-map.get(i-1));
-		}
-		ArrayList<Integer> ans = new ArrayList<Integer>();
-		for(int i=1; i<list.size(); i++) {
-			ans.add(uclid(list.get(i), list.get(i+1)));
-		}
-		int a = ans.stream().min(Comparator.comparing(x->x)).get();
-		bw.write((map.get(N-1)-map.get(0))/a+1-N+"");
-		bw.flush();
-		bw.close();
-	}
-	public static int uclid(int a, int b) {
-		int r;
-		while(b!=0) {
-			r = a%b;
-			a = b;
-			b = r;
-		}
-		return a;
-	}
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N = Integer.parseInt(br.readLine());
+        List<Integer> list = new ArrayList<>();
+        for(int i = 0; i < N; i++)
+            list.add(Integer.parseInt(br.readLine()));
+        List<Integer> distanceList = new ArrayList<>();
+        int gcdNum = 0;
+        for(int i = N-1; i > 0; i--){
+            int distance = list.get(i) - list.get(i-1);
+            gcdNum = gcd(distance, gcdNum);
+        }
+        bw.write((list.get(N-1)-list.get(0))/gcdNum+1 - N + "");
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+    private static int gcd(int a, int b) {
+        return b!=0 ? gcd(b, a%b) : a;
+    }
 }
