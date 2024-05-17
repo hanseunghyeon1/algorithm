@@ -1,12 +1,20 @@
 import sys
-N = int(sys.stdin.readline())
-A = list(map(int, sys.stdin.readline().split()))
-NGE= [-1]*N
-stack = [0] # 0번 인덱스
+from collections import deque
 
-for i in range(1, N):
-    # 오큰수 : A[i]의 오른쪽에 있으면서 A[i]보다 큰 수 중 가장 왼쪽 값 
-    while stack and A[stack[-1]] < A[i]:
-        NGE[stack.pop()] = A[i] # 해당 인덱스 칸은 A[i]
-    stack.append(i)
-print(*NGE)
+input = sys.stdin.readline
+
+n = int(input())
+
+numList = list(map(int, input().split()))
+
+result = deque()
+
+ans = ['-1'] * n
+
+for i in range(n):
+    while result and numList[result[-1]] < numList[i]:
+        ans[result.pop()] = str(numList[i])
+    if i != n-1:
+        result.append(i)
+
+print(' '.join(ans))
