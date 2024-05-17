@@ -5,13 +5,13 @@ input = sys.stdin.readline
 
 n = int(input())
 
-numList = list(int(input()) for i in range(n))
+numList = deque(int(input()) for i in range(n))
 
 deq = deque()
 num = 1
 result = ''
 for i in range(n):
-    a = numList[i]
+    a = numList.popleft()
     if a >= num:
         while a >= num:
             deq.append(num)
